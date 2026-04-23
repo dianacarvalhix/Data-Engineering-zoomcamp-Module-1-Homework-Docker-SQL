@@ -193,3 +193,141 @@ LIMIT 1;
 
 ### Result
 Yorkville West
+
+🐳 Terraform
+
+In this section homework we'll prepare the environment by creating resources in GCP with Terraform.
+
+In your VM on GCP/Laptop/GitHub Codespace install Terraform. Copy the files from the course repo [here](https://github.com/DataTalksClub/data-engineering-zoomcamp/tree/main/01-docker-terraform/terraform/terraform) to your VM/Laptop/GitHub Codespace.
+
+Modify the files as necessary to create a GCP Bucket and Big Query Dataset.
+
+### Resolution
+All the files used in this project are in the folder "terraproject".
+
+This project uses Terraform to create:
+
+A Google Cloud Storage bucket
+A BigQuery dataset
+
+Authentication is done without a service account key, using service account impersonation.
+
+🧠 How Authentication Works
+
+Instead of using a service account key file, this setup works like this:
+
+You log in as yourself (your Google user)
+You are allowed to impersonate a service account
+Terraform requests a temporary token
+Terraform acts as the service account
+⚙️ Setup Instructions
+STEP 1 — Login as yourself
+
+You must authenticate using Application Default Credentials (ADC):
+
+gcloud auth application-default login
+
+👉 This gives you (your Google user) an identity.
+
+STEP 2 — Allow impersonation
+
+Grant your user permission to impersonate the service account:
+
+gcloud iam service-accounts add-iam-policy-binding \
+  ${service_account_email} \
+  --member="user:YOUR_EMAIL@gmail.com" \
+  --role="roles/iam.serviceAccountTokenCreator"
+
+👉 This means:
+
+“This user is allowed to generate access tokens for this service account”
+
+STEP 3 — Terraform requests a temporary token
+
+When you run Terraform, it does:
+
+“Hey Google, can I act like terraform-runner?”
+
+Google checks:
+
+Are you logged in? ✔
+Are you allowed to impersonate? ✔
+
+If yes:
+
+👉 Google returns a temporary access token (valid ~1 hour)
+
+STEP 4 — Terraform uses the service account
+
+Terraform uses that token to act as the service account.
+
+🔁 What you need to run this project
+
+You must have:
+
+1. Logged in
+gcloud auth application-default login
+2. Impersonation permission
+gcloud iam service-accounts add-iam-policy-binding \
+  ${service_account_email} \
+  --member="user:YOUR_EMAIL@gmail.com" \
+  --role="roles/iam.serviceAccountTokenCreator"
+3. (Optional) Debug check
+gcloud auth application-default print-access-token
+
+👉 This prints your current access token (useful for debugging authentication issues)
+
+🚀 Terraform Workflow
+
+Run the following commands:
+
+terraform init
+terraform apply -auto-approve
+terraform destroy
+What they do:
+terraform init → downloads providers and sets up backend
+terraform apply -auto-approve → creates resources
+terraform destroy → deletes all resources
+🧱 Resources Created
+Google Cloud Storage Bucket
+Used for object storage
+Configured with lifecycle rules
+BigQuery Dataset
+Used for analytics and data processing
+
+🧠 Summary
+You authenticate as yourself
+You are allowed to impersonate a service account
+Terraform uses a temporary token
+Resources are created as the service account
+
+⚠️ Common Pitfall
+
+If resources fail to create:
+
+Make sure you are logged in
+Make sure you have impersonation permission
+Make sure Terraform resources use:
+provider = google.impersonated
+
+
+🐳 Question 7. Terraform Workflow
+
+Which of the following sequences, respectively, describes the workflow for:
+
+    Downloading the provider plugins and setting up backend,
+    Generating proposed changes and auto-executing the plan
+    Remove all resources managed by terraform`
+
+Answers:
+
+    terraform import, terraform apply -y, terraform destroy
+    teraform init, terraform plan -auto-apply, terraform rm
+    terraform init, terraform run -auto-approve, terraform destroy
+    terraform init, terraform apply -auto-approve, terraform destroy
+    terraform import, terraform apply -y, terraform rm
+
+
+### Answer
+
+terraform init, terraform run -auto-approve, terraform destroy
