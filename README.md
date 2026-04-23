@@ -281,19 +281,24 @@ gcloud auth application-default print-access-token
 
 Run the following commands:
 
-terraform init
+terraform init 
+
 terraform apply -auto-approve
+
 terraform destroy
+
 What they do:
 terraform init → downloads providers and sets up backend
+
 terraform apply -auto-approve → creates resources
+
 terraform destroy → deletes all resources
+
 🧱 Resources Created
-Google Cloud Storage Bucket
-Used for object storage
-Configured with lifecycle rules
-BigQuery Dataset
-Used for analytics and data processing
+
+Google Cloud Storage Bucket-Used for object storage configured with lifecycle rules
+
+BigQuery Dataset - Used for analytics and data processing
 
 🧠 Summary
 You authenticate as yourself
