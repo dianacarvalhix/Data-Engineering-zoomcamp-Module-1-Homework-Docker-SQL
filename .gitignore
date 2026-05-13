@@ -209,3 +209,8 @@ __marimo__/
 
 .terraform/
 .terraform.lock.hcl
+*.json
+
+*.tfstate
+*.tfstate.*
+.terraform/
