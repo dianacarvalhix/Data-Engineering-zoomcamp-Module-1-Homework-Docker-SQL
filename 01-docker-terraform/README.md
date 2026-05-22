@@ -1,7 +1,7 @@
 # Data-Engineering-zoomcamp-Module-1-Homework-Docker-SQL
 📌 Overview
 
-This repository contains my solutions for Module 1 of the Data Engineering Zoomcamp.
+This folder contains my solutions for Module 1 of the Data Engineering Zoomcamp.
 The exercises focus on using Docker, working with Python images, and understanding containerized environments.
 
 
@@ -181,14 +181,17 @@ Note: it's tip , not trip. We need the name of the zone, not the ID.
 
 ### Resolution
 SELECT 
-    z."Zone",
-    SUM(t.total_amount) AS total
+    dz."Zone",
+    MAX(t.tip_amount) AS max_tip
 FROM green_taxi_trips t
-JOIN taxi_zone_lookup z
-  ON t."pulocationid" = z."LocationID"
-WHERE DATE(t.lpep_pickup_datetime) = '2025-11-18'
-GROUP BY z."Zone"
-ORDER BY total DESC
+JOIN taxi_zone_lookup puz
+  ON t."pulocationid" = puz."LocationID"
+JOIN taxi_zone_lookup dz
+  ON t."dolocationid" = dz."LocationID"
+WHERE puz."Zone" = 'East Harlem North'
+  AND DATE_TRUNC('month', t.lpep_pickup_datetime) = '2025-11-01'
+GROUP BY dz."Zone"
+ORDER BY max_tip DESC
 LIMIT 1;
 
 ### Result
