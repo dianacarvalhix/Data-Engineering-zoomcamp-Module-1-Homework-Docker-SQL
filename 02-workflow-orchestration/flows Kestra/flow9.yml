@@ -1,5 +1,3 @@
-- I will reutilize the flow in kestra developed along the data engineer course which I am leaving below. This flow takes the data from github, uploads it into the GCP bucket and uses bigQuery to transform it.
-
 id: 09_gcp_taxi_scheduled
 namespace: zoomcamp
 description: |
