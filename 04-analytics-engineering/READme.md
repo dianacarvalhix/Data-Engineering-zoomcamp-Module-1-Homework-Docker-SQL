@@ -159,7 +159,7 @@ models:
 
 vars:
   dev_start_date: '2019-01-01'
-  dev_end_date: '2019-02-01'
+  dev_end_date: '2021-01-01'
 ```
 
 The development variables limit the amount of data processed while developing locally, making dbt runs significantly faster.
