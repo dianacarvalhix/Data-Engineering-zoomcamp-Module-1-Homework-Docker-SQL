@@ -80,6 +80,28 @@ nano ~/.dbt/profiles.yml
 Configured BigQuery authentication using the `service-account-json` method.
 
 The `profiles.yml` file is excluded from version control to keep credentials secure.
+Configured with method: service-account-json, BigQuery project, dataset, and location: europe-west2:
+
+yamldefault:
+  target: dev
+  outputs:
+    dev:
+      type: bigquery
+      method: service-account-json
+      project: <your-gcp-project-id>
+      dataset: <your-dbt-dataset>
+      threads: 4
+      location: europe-west2
+      keyfile_json:
+        type: service_account
+        project_id: <your-gcp-project-id>
+        private_key_id: <your-key-id>
+        private_key: "-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n"
+        client_email: <your-service-account-email>
+        client_id: <your-client-id>
+        auth_uri: https://accounts.google.com/o/oauth2/auth
+        token_uri: https://oauth2.googleapis.com/token
+
 
 ---
 
