@@ -231,3 +231,13 @@ dbt_packages/
 logs/
 # end dbt Cloud content
 profiles.yml
+.bruin.yml
+logs/runs
+logs/*.log
+*.py[cod]
+logs/queries
+
+duckdb.db
+*.db
+duckdb.db
+*.db
