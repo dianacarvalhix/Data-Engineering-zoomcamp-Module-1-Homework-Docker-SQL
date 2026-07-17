@@ -1,4 +1,4 @@
-name: nyc_taxi
+name: nyc_taxi_automated
 schedule: monthly
 start_date: 2022-01-01
 default_connections:
