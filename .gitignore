@@ -241,3 +241,4 @@ duckdb.db
 *.db
 duckdb.db
 *.db
+.env
